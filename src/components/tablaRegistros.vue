@@ -80,7 +80,9 @@
       </div> -->
     </div>
     <!-- {{ statesData }} -->
-    <table v-show="tableDate" class="container table-sort table-arrows">
+    <h2 v-show="tableDate">Total de Casos por Localidad</h2>
+
+    <table v-show="tableDate" class="container table-sort table-arrows casos">
       <thead>
         <tr>
           <th>Localidad</th>
@@ -90,23 +92,90 @@
       <tbody>
         <tr v-for="item in statesData" :key="item.Zona">
           <td>{{ item.Zona }}</td>
-          <td>{{ item.totalCasos }}</td>
+          <td
+            style="background: #fff5f0"
+            v-if="
+              item.totalCasos <= dominio[1] && item.totalCasos >= dominio[1 - 1]
+            "
+          >
+            {{ item.totalCasos }}
+          </td>
+          <td
+            style="background: #fee087"
+            v-if="
+              item.totalCasos < dominio[2] && item.totalCasos >= dominio[2 - 1]
+            "
+          >
+            {{ item.totalCasos }}
+          </td>
+          <td
+            style="background: #fec965"
+            v-if="
+              item.totalCasos < dominio[3] && item.totalCasos >= dominio[3 - 1]
+            "
+          >
+            {{ item.totalCasos }}
+          </td>
+          <td
+            style="background: #feab4b"
+            v-if="
+              item.totalCasos < dominio[4] && item.totalCasos >= dominio[4 - 1]
+            "
+          >
+            {{ item.totalCasos }}
+          </td>
+          <td
+            style="background: #fd893c"
+            v-if="
+              item.totalCasos < dominio[5] && item.totalCasos >= dominio[5 - 1]
+            "
+          >
+            {{ item.totalCasos }}
+          </td>
+          <td
+            style="background: #fa5c2e"
+            v-if="
+              item.totalCasos < dominio[6] && item.totalCasos >= dominio[6 - 1]
+            "
+          >
+            {{ item.totalCasos }}
+          </td>
+          <td
+            style="background: #ec3023"
+            v-if="
+              item.totalCasos < dominio[7] && item.totalCasos >= dominio[7 - 1]
+            "
+          >
+            {{ item.totalCasos }}
+          </td>
+          <td
+            style="background: #ec3023"
+            v-if="
+              item.totalCasos < dominio[8] && item.totalCasos >= dominio[8 - 1]
+            "
+          >
+            {{ item.totalCasos }}
+          </td>
+          <td style="background: #d31121" v-if="item.totalCasos >= dominio[8]">
+            {{ item.totalCasos }}
+          </td>
         </tr>
       </tbody>
     </table>
-    <table v-show="!tableDate" class="container table-sort table-arrows">
+    <h2 v-show="!tableDate">Casos por Horas Top 5 - Localidades</h2>
+    <table v-show="!tableDate" class="container table-sort table-arrows horas">
       <thead>
         <tr>
           <th>Hora</th>
-          <th>#1</th>
+
           <th>Localidad 1</th>
-          <th>#2</th>
+
           <th>Localidad 2</th>
-          <th>#3</th>
+
           <th>Localidad 3</th>
-          <th>#4</th>
+
           <th>Localidad 4</th>
-          <th>#5</th>
+
           <th>Localidad 5</th>
         </tr>
       </thead>
@@ -115,16 +184,290 @@
           <td v-if="item.horas === 0">{{ item.horas }}-{{ 2 }}</td>
 
           <td v-else>{{ item.horas }}-{{ item.horas + 2 }}</td>
-          <td>{{ item.top5[0] }}</td>
-          <td>{{ item.top5[1] }}</td>
-          <td>{{ item.top5[2] }}</td>
-          <td>{{ item.top5[3] }}</td>
-          <td>{{ item.top5[4] }}</td>
-          <td>{{ item.top5[5] }}</td>
-          <td>{{ item.top5[6] }}</td>
-          <td>{{ item.top5[7] }}</td>
-          <td>{{ item.top5[8] }}</td>
-          <td>{{ item.top5[9] }}</td>
+          <td
+            v-if="item.top5[0] < dominioCasosHora[0]"
+            style="background: #fff0a9"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[0] }}</span>
+            <div>{{ item.top5[1] }}</div>
+            <span class="tooltiptext">{{ item.top5[0] }}</span>
+          </td>
+
+          <td
+            v-if="
+              item.top5[0] < dominioCasosHora[1] &&
+              item.top5[0] >= dominioCasosHora[0]
+            "
+            style="background: #fec965"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[0] }}</span>
+            <div>{{ item.top5[1] }}</div>
+            <span class="tooltiptext">{{ item.top5[0] }}</span>
+          </td>
+
+          <td
+            v-if="
+              item.top5[0] < dominioCasosHora[2] &&
+              item.top5[0] >= dominioCasosHora[1]
+            "
+            style="background: #fd893c"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[0] }}</span>
+            <div>{{ item.top5[1] }}</div>
+            <span class="tooltiptext">{{ item.top5[0] }}</span>
+          </td>
+          <td
+            v-if="
+              item.top5[0] < dominioCasosHora[3] &&
+              item.top5[0] >= dominioCasosHora[2]
+            "
+            style="background: #fa5c2e"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[0] }}</span>
+            <div>{{ item.top5[1] }}</div>
+            <span class="tooltiptext">{{ item.top5[0] }}</span>
+          </td>
+          <td
+            v-if="item.top5[0] >= dominioCasosHora[3]"
+            style="background: #d31121"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[0] }}</span>
+            <div>{{ item.top5[1] }}</div>
+            <span class="tooltiptext">{{ item.top5[0] }}</span>
+          </td>
+
+          <td
+            v-if="item.top5[2] < dominioCasosHora[0]"
+            style="background: #fff0a9"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[2] }}</span>
+            <div>{{ item.top5[3] }}</div>
+            <span class="tooltiptext">{{ item.top5[2] }}</span>
+          </td>
+
+          <td
+            v-if="
+              item.top5[2] < dominioCasosHora[1] &&
+              item.top5[2] >= dominioCasosHora[0]
+            "
+            style="background: #fec965"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[2] }}</span>
+            <div>{{ item.top5[3] }}</div>
+            <span class="tooltiptext">{{ item.top5[2] }}</span>
+          </td>
+
+          <td
+            v-if="
+              item.top5[2] < dominioCasosHora[2] &&
+              item.top5[2] >= dominioCasosHora[1]
+            "
+            style="background: #fd893c"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[2] }}</span>
+            <div>{{ item.top5[3] }}</div>
+            <span class="tooltiptext">{{ item.top5[2] }}</span>
+          </td>
+          <td
+            v-if="
+              item.top5[2] < dominioCasosHora[3] &&
+              item.top5[2] >= dominioCasosHora[2]
+            "
+            style="background: #fa5c2e"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[2] }}</span>
+            <div>{{ item.top5[3] }}</div>
+            <span class="tooltiptext">{{ item.top5[3] }}</span>
+          </td>
+          <td
+            v-if="item.top5[2] >= dominioCasosHora[3]"
+            style="background: #d31121"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[2] }}</span>
+            <div>{{ item.top5[3] }}</div>
+            <span class="tooltiptext">{{ item.top5[2] }}</span>
+          </td>
+
+          <td
+            v-if="item.top5[4] < dominioCasosHora[0]"
+            style="background: #fff0a9"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[4] }}</span>
+            <div>{{ item.top5[5] }}</div>
+            <span class="tooltiptext">{{ item.top5[4] }}</span>
+          </td>
+
+          <td
+            v-if="
+              item.top5[4] < dominioCasosHora[1] &&
+              item.top5[4] >= dominioCasosHora[0]
+            "
+            style="background: #fec965"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[4] }}</span>
+            <div>{{ item.top5[5] }}</div>
+            <span class="tooltiptext">{{ item.top5[4] }}</span>
+          </td>
+
+          <td
+            v-if="
+              item.top5[4] < dominioCasosHora[2] &&
+              item.top5[4] >= dominioCasosHora[1]
+            "
+            style="background: #fd893c"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[4] }}</span>
+            <div>{{ item.top5[5] }}</div>
+            <span class="tooltiptext">{{ item.top5[4] }}</span>
+          </td>
+          <td
+            v-if="
+              item.top5[4] < dominioCasosHora[3] &&
+              item.top5[4] >= dominioCasosHora[2]
+            "
+            style="background: #fa5c2e"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[4] }}</span>
+            <div>{{ item.top5[5] }}</div>
+            <span class="tooltiptext">{{ item.top5[4] }}</span>
+          </td>
+          <td
+            v-if="item.top5[4] >= dominioCasosHora[3]"
+            style="background: #d31121"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[4] }}</span>
+            <div>{{ item.top5[5] }}</div>
+            <span class="tooltiptext">{{ item.top5[4] }}</span>
+          </td>
+
+          <td
+            v-if="item.top5[6] < dominioCasosHora[0]"
+            style="background: #fff0a9"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[6] }}</span>
+            <div>{{ item.top5[7] }}</div>
+            <span class="tooltiptext">{{ item.top5[6] }}</span>
+          </td>
+
+          <td
+            v-if="
+              item.top5[6] < dominioCasosHora[1] &&
+              item.top5[6] >= dominioCasosHora[0]
+            "
+            style="background: #fec965"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[6] }}</span>
+            <div>{{ item.top5[7] }}</div>
+            <span class="tooltiptext">{{ item.top5[6] }}</span>
+          </td>
+
+          <td
+            v-if="
+              item.top5[6] < dominioCasosHora[2] &&
+              item.top5[6] >= dominioCasosHora[1]
+            "
+            style="background: #fd893c"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[6] }}</span>
+            <div>{{ item.top5[7] }}</div>
+            <span class="tooltiptext">{{ item.top5[6] }}</span>
+          </td>
+          <td
+            v-if="
+              item.top5[6] < dominioCasosHora[3] &&
+              item.top5[6] >= dominioCasosHora[2]
+            "
+            style="background: #fa5c2e"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[6] }}</span>
+            <div>{{ item.top5[7] }}</div>
+            <span class="tooltiptext">{{ item.top5[6] }}</span>
+          </td>
+          <td
+            v-if="item.top5[6] >= dominioCasosHora[3]"
+            style="background: #d31121"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[6] }}</span>
+            <div>{{ item.top5[7] }}</div>
+            <span class="tooltiptext">{{ item.top5[6] }}</span>
+          </td>
+
+          <td
+            v-if="item.top5[8] < dominioCasosHora[0]"
+            style="background: #fff0a9"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[8] }}</span>
+            <div>{{ item.top5[9] }}</div>
+            <span class="tooltiptext">{{ item.top5[8] }}</span>
+          </td>
+
+          <td
+            v-if="
+              item.top5[8] < dominioCasosHora[1] &&
+              item.top5[8] >= dominioCasosHora[0]
+            "
+            style="background: #fec965"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[8] }}</span>
+            <div>{{ item.top5[9] }}</div>
+            <span class="tooltiptext">{{ item.top5[8] }}</span>
+          </td>
+
+          <td
+            v-if="
+              item.top5[8] < dominioCasosHora[2] &&
+              item.top5[8] >= dominioCasosHora[1]
+            "
+            style="background: #fd893c"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[8] }}</span>
+            <div>{{ item.top5[9] }}</div>
+            <span class="tooltiptext">{{ item.top5[8] }}</span>
+          </td>
+          <td
+            v-if="
+              item.top5[8] < dominioCasosHora[3] &&
+              item.top5[8] >= dominioCasosHora[2]
+            "
+            style="background: #fa5c2e"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[8] }}</span>
+            <div>{{ item.top5[9] }}</div>
+            <span class="tooltiptext">{{ item.top5[8] }}</span>
+          </td>
+          <td
+            v-if="item.top5[8] >= dominioCasosHora[3]"
+            style="background: #d31121"
+            class="tooltip"
+          >
+            <span class="invisible"> {{ item.top5[8] }}</span>
+            <div>{{ item.top5[9] }}</div>
+            <span class="tooltiptext">{{ item.top5[8] }}</span>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -132,7 +475,12 @@
 </template>
 <script>
 export default {
-  props: { dataLocalidades: Array, fechaaInicial: String, fechaaFinal: String },
+  props: {
+    dataLocalidades: Array,
+    fechaaInicial: String,
+    fechaaFinal: String,
+    dominio: Array,
+  },
   watch: {
     fechaaInicial(nuevoValor, valorAnterior) {
       console.log(
@@ -141,6 +489,10 @@ export default {
         nuevoValor
       );
       this.fechaIncial = this.fechaaInicial;
+    },
+    dominio(nuevoValor, valorAnterior) {
+      console.log("El dominio pasó de ser %s a %s", valorAnterior, nuevoValor);
+      console.log(this.dominio);
     },
     fechaaFinal(nuevoValor, valorAnterior) {
       console.log(
@@ -163,6 +515,9 @@ export default {
   },
   data() {
     return {
+      min: 0,
+      max: 0,
+      dominioCasosHora: [],
       tableDate: false,
       statesData: [],
       statesDataHours: [],
@@ -203,7 +558,28 @@ export default {
             this.statesDataHours = data;
             this.statesDataHours.forEach((element) => {
               element.top5 = element.top5.split(",");
+              this.dominioCasosHora.push(element.top5);
             });
+            this.dominioCasosHora.forEach((item) => {
+              item.forEach((item, index) => {
+                if (!isNaN(item)) {
+                  console.log(this.max);
+                  if (this.max < parseInt(item)) {
+                    console.log("es mayor", item, index);
+
+                    this.max = item;
+                  }
+                }
+              });
+            });
+            console.log(this.max);
+            this.dominioCasosHora = [];
+            let rango = Math.round(this.max / 5);
+            for (let i = 0; i < 5; i++) {
+              this.dominioCasosHora.push((this.min += rango));
+            }
+
+            console.log(this.dominioCasosHora);
             console.log(this.statesDataHours);
             this.$emit("updateHour", this.fechaFinal);
           });
@@ -325,7 +701,11 @@ th {
 }
 
 .container td {
-  color: #ffffff;
+  color: black;
+}
+
+.container td:nth-child(1) {
+  color: white;
 }
 
 .container tr:hover {
@@ -335,8 +715,8 @@ th {
   box-shadow: 0 6px 6px -6px #0e1119;
 }
 
-.container td:hover {
-  background-color: #ff6b3d;
+.container .tooltip:hover {
+  background-color: black !important;
   color: white;
   /* font-weight: bold; */
 
@@ -411,5 +791,51 @@ button:hover {
   right: 0;
   width: fit-content;
   margin-bottom: 2rem;
+}
+.tooltip {
+  position: relative;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: white;
+  color: #000;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  bottom: 90%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.horas tbody tr td:nth-child(2) {
+  background: #ec3023;
+}
+.horas tbody tr td:nth-child(3) {
+  background: #fa5c2e;
+}
+.horas tbody tr td:nth-child(4) {
+  background: #fd893c;
+}
+.horas tbody tr td:nth-child(5) {
+  background: #feab4b;
+}
+.horas tbody tr td:nth-child(6) {
+  background: #fec965;
+}
+.casos tbody tr td:nth-child(2) {
+  font-weight: bold;
+}
+.invisible {
+  visibility: hidden;
+  position: absolute;
 }
 </style>

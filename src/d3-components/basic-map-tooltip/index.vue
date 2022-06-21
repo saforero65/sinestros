@@ -7,6 +7,7 @@
       @getData="getData"
       @updateData="updateData"
       @updateHour="updateHour"
+      :dominio="domain"
       v-show="tabla_registros"
     />
     <div v-show="!tabla_registros">
